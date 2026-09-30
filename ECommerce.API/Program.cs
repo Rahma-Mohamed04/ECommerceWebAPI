@@ -1,5 +1,6 @@
 
 using ECommerce.API.Extensions;
+using ECommerce.Application;
 using ECommerce.Infrastructure;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace ECommerce.API
 
             // Add services to the container.
             builder.Services.AddInfratructureServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
 
 
