@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using ECommerce.Application.DTOs.Baskets;
 using ECommerce.Application.DTOs.Products;
+using ECommerce.Domain.Entities.Baskets;
 using ECommerce.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;

@@ -18,6 +18,11 @@ namespace ECommerce.Infrastructure.Repositories
             dbContext.Set<TEntity>().Add(entity);
         }
 
+        public async Task<int> CountAsync(ISpecification<TEntity, TKey> Spec, CancellationToken ct = default)
+        {
+            return await SpecificationEvaluator.CreateQuery(dbContext.Set<TEntity>(), Spec).CountAsync();
+        }
+
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
         {
             return await dbContext.Set<TEntity>().ToListAsync(ct);

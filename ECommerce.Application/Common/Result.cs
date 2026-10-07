@@ -40,7 +40,7 @@ namespace ECommerce.Application.Common
         }
 
         public static Result<TValue> Ok(TValue value) => new(value);
-        public static Result<TValue> Fail(Error error) => new(new[] { error });
+        public static Result<TValue> Fail(Error error) => new(error);
         public static Result<TValue> Fail(IReadOnlyList<Error> errors) => new(errors);
     }
 }
