@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.Common;
+﻿using ECommerce.API.Attributes;
+using ECommerce.Application.Common;
 using ECommerce.Application.Contracts;
 using ECommerce.Application.DTOs.Products;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet]
+        [RedisCache(65)]
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryParams queryParams, CancellationToken ct)
         {
             var result = await productService.GetAllProductsAsync(queryParams, ct);
