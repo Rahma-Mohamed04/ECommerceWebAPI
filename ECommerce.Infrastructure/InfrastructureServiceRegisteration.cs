@@ -45,6 +45,9 @@ namespace ECommerce.Infrastructure
             services.AddIdentityCore<ApplicationUser>()
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<StoreIdentityDbContext>();
+
+            services.AddScoped<ITokenService, TokenService>();
+
             return services;
         }
     }

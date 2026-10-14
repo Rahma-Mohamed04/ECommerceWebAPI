@@ -12,10 +12,12 @@ namespace ECommerce.Application.Services
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IIdentityService _identityService;
+        private readonly ITokenService tokenService;
 
-        public AuthenticationService(IIdentityService identityService) 
+        public AuthenticationService(IIdentityService identityService, ITokenService tokenService) 
         {
             _identityService = identityService;
+            this.tokenService = tokenService;
         }
 
         public async Task<Result<UserDto>> LoginAsync(LoginDto loginDto, CancellationToken ct = default)
@@ -31,11 +33,16 @@ namespace ECommerce.Application.Services
             if (!passwordResult.data)
                 return Result<UserDto>.Fail(Error.Unauthorized("Invalid email or Password"));
 
+            var user = userResult.data;
+            var rolesResult = await _identityService.GetUserRoles(user.Email, ct);
+            var roles = rolesResult.data;  
+            var token = tokenService.CreateToken(user.Id, user.Email, user.UserName, roles);
+
             return Result<UserDto>.Ok(new UserDto
             {
                 Email = loginDto.Email,
                 DisplayName = userResult.data.DisplayName,
-                Token = "Token"
+                Token = token
             });
         }
 
@@ -49,12 +56,15 @@ namespace ECommerce.Application.Services
             }
 
             var user = userResult.data;
+            var rolesResult = await _identityService.GetUserRoles(user.Email, ct);
+            var roles = rolesResult.data;
+            var token = tokenService.CreateToken(user.Id, user.Email, user.UserName, roles);
 
             return Result<UserDto>.Ok(new UserDto()
             {
                 Email = user.Email,
                 DisplayName = user.DisplayName,
-                Token = "Token" 
+                Token = token
             });
         }
     }

@@ -3,6 +3,7 @@ using ECommerce.API.Extensions;
 using ECommerce.Application;
 using ECommerce.Infrastructure;
 using System.Threading.Tasks;
+using static ECommerce.Infrastructure.Services.TokenService;
 
 namespace ECommerce.API
 {
@@ -15,8 +16,7 @@ namespace ECommerce.API
             // Add services to the container.
             builder.Services.AddInfratructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
-
-
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWT"));
 
 
             builder.Services.AddControllers();
