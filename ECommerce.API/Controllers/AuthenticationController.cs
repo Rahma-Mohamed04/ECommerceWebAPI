@@ -22,8 +22,6 @@ namespace ECommerce.API.Controllers
             return ToActionResult(await _authenticationService.LoginAsync(loginDto));
         }
 
-
-
         [HttpPost("Register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
