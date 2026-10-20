@@ -3,6 +3,7 @@ using ECommerce.Domain.Contracts;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Data.Seeding;
 using ECommerce.Infrastructure.Entities;
+using ECommerce.Infrastructure.Payment;
 using ECommerce.Infrastructure.Repositories;
 using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
@@ -47,6 +48,7 @@ namespace ECommerce.Infrastructure
                     .AddEntityFrameworkStores<StoreIdentityDbContext>();
 
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPaymentGateway, StripePaymentGateway>();
 
             return services;
         }

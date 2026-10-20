@@ -1,6 +1,7 @@
 ﻿
 using ECommerce.API.Extensions;
 using ECommerce.Application;
+using ECommerce.Application.Common;
 using ECommerce.Application.Profiles;
 using ECommerce.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +23,7 @@ namespace ECommerce.API
             builder.Services.AddApplicationServices();
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWT"));
             builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
+            builder.Services.Configure<PaymentGatewaySettings>(builder.Configuration.GetSection("Stripe"));
 
 
             builder.Services.AddControllers();
